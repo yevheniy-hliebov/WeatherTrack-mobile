@@ -19,8 +19,9 @@ A step by step series of examples that tell you how to get a development environ
 
 1. Clone the repo
 2. Open the project in your preferred IDE
-3. Run `flutter pub get`
-4. Run the app (`flutter run`)
+3. Dublicate `.env.example` and rename to `.env`, write your keys
+4. Run `flutter pub get`
+5. Run the app (`flutter run`)
 
 ### Other commands
 - `dart format [path]` - format code to Dart style
