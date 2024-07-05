@@ -1,4 +1,4 @@
-class CityModel {
+class City {
   final int id;
   final String wikiDataId;
   final String type;
@@ -12,7 +12,7 @@ class CityModel {
   final double longitude;
   final int population;
 
-  CityModel({
+  City({
     required this.id,
     required this.wikiDataId,
     required this.type,
@@ -27,8 +27,8 @@ class CityModel {
     required this.population,
   });
 
-  factory CityModel.fromMap(Map<String, dynamic> map) {
-    return CityModel(
+  factory City.fromMap(Map<String, dynamic> map) {
+    return City(
       id: map['id'],
       wikiDataId: map['wikiDataId'],
       type: map['type'],
@@ -44,7 +44,7 @@ class CityModel {
     );
   }
 
-  static List<CityModel> fromMapList(List<dynamic> mapList) {
-    return mapList.map((map) => CityModel.fromMap(map)).toList();
+  static List<City> fromMapList(List<dynamic> mapList) {
+    return mapList.map((map) => City.fromMap(map)).toList();
   }
 }
