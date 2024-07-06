@@ -22,7 +22,7 @@ class WeatherService {
       throw WeatherException('Failed to load data: ${response.statusCode}');
     }
   }
-  
+
   static Future<dynamic> getForecastInCity(
     double latitude,
     double longitude,
