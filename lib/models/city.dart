@@ -47,4 +47,8 @@ class City {
   static List<City> fromMapList(List<dynamic> mapList) {
     return mapList.map((map) => City.fromMap(map)).toList();
   }
+
+  String get nameAndCountryCode {
+    return '$name, ${countryCode.toUpperCase()}';
+  }
 }

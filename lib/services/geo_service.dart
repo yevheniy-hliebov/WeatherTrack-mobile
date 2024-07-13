@@ -5,7 +5,7 @@ import 'package:weather_track/models/city.dart';
 import 'package:weather_track/utils/bytes_to_json.dart';
 
 class GeoService {
-  static Future<List<City>> search(String cityNamePrefix) async {
+  Future<List<City>> search(String cityNamePrefix) async {
     final url = Uri.parse(
       '${Config.geoApiUrl}/cities?minPopulation=${Config.geoPopulation}&namePrefix=$cityNamePrefix',
     );
