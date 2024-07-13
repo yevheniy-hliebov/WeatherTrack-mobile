@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
 import 'package:weather_track/widgets/app_title.dart';
@@ -14,14 +16,24 @@ class HomePage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        child: Scaffold(
           backgroundColor: Colors.transparent,
-          systemOverlayStyle: SystemOverlayStyle.getStyle(),
-          title: const AppTitle(title: 'WeatherTrack'),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            systemOverlayStyle: SystemOverlayStyle.getStyle(),
+            title: const AppTitle(title: 'WeatherTrack'),
+          ),
+          body: const Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Center()
+              ],
+            ),
+          ),
         ),
-        body: const Center(),
       ),
     );
   }
