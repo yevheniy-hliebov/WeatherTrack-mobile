@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_track/config/app_colors.dart';
 import 'package:weather_track/models/city.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
-import 'package:weather_track/widgets/custom_search_bar.dart';
+import 'package:weather_track/widgets/common/common.dart';
 
 class SearchCityBar extends StatefulWidget {
   const SearchCityBar({super.key});
@@ -24,7 +24,8 @@ class _SearchCityBarState extends State<SearchCityBar> {
       hintText: 'Enter city...',
       isLoading: provider.isLoading,
       separatorResultBuilder: (context, index) => const Divider(height: 1),
-      itemResultBuilder: (context, index) => _buildItemResult(provider.listCities[index]),
+      itemResultBuilder: (context, index) =>
+          _buildItemResult(provider.listCities[index]),
       resultCount: provider.resultCount,
       onFocused: () => _handleOnFocused(provider),
       onTapedItemResult: (index) => _handleOnTapedItemResult(provider, index),

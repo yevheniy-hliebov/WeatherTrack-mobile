@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
-import 'package:weather_track/widgets/app_title.dart';
+import 'package:weather_track/widgets/common/common.dart';
 import 'package:weather_track/widgets/search_city_bar.dart';
 
 class HomePage extends StatelessWidget {

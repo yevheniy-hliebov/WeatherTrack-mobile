@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_track/config/app_colors.dart';
 import 'package:weather_track/styles/app_text_styles.dart';
-import 'package:weather_track/widgets/custom_container.dart';
-import 'package:weather_track/widgets/loader.dart';
+import 'package:weather_track/widgets/common/common.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final TextEditingController? controller;
