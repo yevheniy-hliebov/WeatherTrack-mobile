@@ -27,6 +27,14 @@ class CustomContainer extends StatelessWidget {
     );
   }
 
+  static Border get transparentBorder {
+    return Border.all(
+      color: Colors.transparent,
+      width: 1,
+      strokeAlign: BorderSide.strokeAlignInside,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
