@@ -15,7 +15,7 @@ class HelperFunctions {
     return kelvin - _kelvinOffset;
   }
 
-  static String degreesToDirection(int degrees) {
+  static String degreesToDirection(double degrees) {
     final directions = [
       'N',
       'NNE',

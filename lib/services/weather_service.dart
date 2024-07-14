@@ -5,12 +5,12 @@ import 'package:weather_track/utils/exceptions/weather_exception.dart';
 import 'package:weather_track/utils/helper_functions.dart';
 
 class WeatherService {
-  static Future<dynamic> getCurrentWeatherInCity(
+  Future<Weather> getCurrentWeatherInCity(
     double latitude,
     double longitude,
   ) async {
     final url = Uri.parse(
-      '${APIContstants.weatherApiUrl}/weather?lat=$latitude&lon=$longitude&lang=${APIContstants.weatherApiLang}&appid=${APIContstants.weatherApiKey}&units=${APIContstants.weatherApiUnits}',
+      '${APIContstants.weatherApiUrl}/weather?lat=$latitude&lon=$longitude&appid=${APIContstants.weatherApiKey}',
     );
 
     final response = await http.get(url);
@@ -23,12 +23,12 @@ class WeatherService {
     }
   }
 
-  static Future<dynamic> getForecastInCity(
+  Future<List<Weather>> getForecastInCity(
     double latitude,
     double longitude,
   ) async {
     final url = Uri.parse(
-      '${APIContstants.weatherApiUrl}/forecast?lat=$latitude&lon=$longitude&lang=${APIContstants.weatherApiLang}&appid=${APIContstants.weatherApiKey}&units=${APIContstants.weatherApiUnits}',
+      '${APIContstants.weatherApiUrl}/forecast?lat=$latitude&lon=$longitude&appid=${APIContstants.weatherApiKey}',
     );
 
     final response = await http.get(url);

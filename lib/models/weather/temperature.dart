@@ -15,10 +15,10 @@ class Temperature {
 
   factory Temperature.fromMap(Map<String, dynamic> map) {
     return Temperature(
-      current: HelperFunctions.kelvinToCelsius(map['temp']),
-      feelsLike: HelperFunctions.kelvinToCelsius(map['feels_like']),
-      min: HelperFunctions.kelvinToCelsius(map['temp_min']),
-      max: HelperFunctions.kelvinToCelsius(map['temp_max']),
+      current: HelperFunctions.kelvinToCelsius((map['temp'] as num).toDouble()),
+      feelsLike: HelperFunctions.kelvinToCelsius((map['feels_like'] as num).toDouble()),
+      min: HelperFunctions.kelvinToCelsius((map['temp_min'] as num).toDouble()),
+      max: HelperFunctions.kelvinToCelsius((map['temp_max'] as num).toDouble()),
     );
   }
 

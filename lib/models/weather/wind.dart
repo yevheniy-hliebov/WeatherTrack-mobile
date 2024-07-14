@@ -2,7 +2,7 @@ import 'package:weather_track/utils/helper_functions.dart';
 
 class Wind {
   final double speed;
-  final int deg;
+  final double deg;
   final String direction;
   final double gust;
 
@@ -15,10 +15,10 @@ class Wind {
 
   factory Wind.fromMap(Map<String, dynamic> map) {
     return Wind(
-      speed: map['speed'],
-      deg: map['deg'],
-      direction: HelperFunctions.degreesToDirection(map['deg']),
-      gust: map['gust'],
+      speed: map['speed'] ?? 0,
+      deg: (map['deg'] as num).toDouble() ?? 0,
+      direction: HelperFunctions.degreesToDirection((map['deg'] as num).toDouble()),
+      gust: map['gust'] ?? 0,
     );
   }
 }
