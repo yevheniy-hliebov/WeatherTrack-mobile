@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_track/styles/app_text_styles.dart';
 
 class AppTitle extends StatelessWidget {
   final String title;
@@ -14,7 +13,7 @@ class AppTitle extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: AppTextStyles.appTitle,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }

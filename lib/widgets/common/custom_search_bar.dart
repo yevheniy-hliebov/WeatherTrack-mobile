@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_track/config/app_colors.dart';
-import 'package:weather_track/styles/app_text_styles.dart';
+import 'package:weather_track/styles/border_styles.dart';
+import 'package:weather_track/utils/constants/constants.dart';
 import 'package:weather_track/widgets/common/common.dart';
 
 class CustomSearchBar extends StatefulWidget {
@@ -69,10 +69,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         clipBehavior: Clip.none,
         children: [
           CustomContainer(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 19),
+            padding: const EdgeInsets.symmetric(
+                vertical: Sizes.xs, horizontal: Sizes.md2),
             border: isFocused
-                ? CustomContainer.defaultBorder
-                : CustomContainer.transparentBorder,
+                ? BorderStyles.defaultBorder
+                : BorderStyles.transparent,
             child: TextField(
               controller: widget.controller,
               keyboardType: TextInputType.text,
@@ -80,12 +81,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               focusNode: _focusNode,
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: AppTextStyles.searchTextHint,
+                hintStyle: Theme.of(context).textTheme.bodyLarge,
                 border: InputBorder.none,
                 suffixIcon: getIconOrLoader(),
               ),
-              style: AppTextStyles.searchText,
-              cursorColor: AppColors.textColor,
+              style: Theme.of(context).textTheme.bodyLarge,
+              cursorColor: AppColors.text,
               onSubmitted: onSubmitted,
               onChanged: onChanged,
             ),
@@ -99,9 +100,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Widget getIconOrLoader() {
     if (widget.isLoading) {
       return const Loader(
-        color: AppColors.textColor,
-        strokeWidth: 2,
-        padding: EdgeInsets.all(12),
+        color: AppColors.text,
+        padding: EdgeInsets.all(Sizes.sm),
       );
     }
     return AnimatedRotation(
@@ -109,7 +109,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       duration: const Duration(milliseconds: 250),
       child: const Icon(
         Icons.arrow_back_ios_new_outlined,
-        color: AppColors.textColor,
+        color: AppColors.text,
       ),
     );
   }
@@ -126,34 +126,33 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     if (isFocused == false) {
       return const SizedBox();
     }
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 71),
-        child: CustomContainer(
-          width: double.infinity,
-          border: CustomContainer.defaultBorder,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (int index = 0; index < widget.resultCount; index++) ...[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      widget.onTapedItemResult?.call(index);
-                      _focusNode.unfocus();
-                    },
-                    splashColor: Colors.white.withOpacity(0.35),
-                    child: widget.itemResultBuilder(context, index),
-                  ),
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: Sizes.customSearchBarHeight,
+      child: CustomContainer(
+        width: double.infinity,
+        border: BorderStyles.defaultBorder,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (int index = 0; index < widget.resultCount; index++) ...[
+              Material(
+                color: AppColors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    widget.onTapedItemResult?.call(index);
+                    _focusNode.unfocus();
+                  },
+                  splashColor: AppColors.splashColor,
+                  child: widget.itemResultBuilder(context, index),
                 ),
-                if (widget.separatorResultBuilder != null &&
-                    index < widget.resultCount - 1)
-                  widget.separatorResultBuilder!(context, index),
-              ]
-            ],
-          ),
+              ),
+              if (widget.separatorResultBuilder != null &&
+                  index < widget.resultCount - 1)
+                widget.separatorResultBuilder!(context, index),
+            ]
+          ],
         ),
       ),
     );

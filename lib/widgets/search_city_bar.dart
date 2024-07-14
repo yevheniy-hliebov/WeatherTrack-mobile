@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_track/config/app_colors.dart';
 import 'package:weather_track/models/city.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
 import 'package:weather_track/widgets/common/common.dart';
@@ -23,7 +22,7 @@ class _SearchCityBarState extends State<SearchCityBar> {
       controller: _controller,
       hintText: 'Enter city...',
       isLoading: provider.isLoading,
-      separatorResultBuilder: (context, index) => const Divider(height: 1),
+      separatorResultBuilder: (context, index) => const CustomDivider(),
       itemResultBuilder: (context, index) =>
           _buildItemResult(provider.listCities[index]),
       resultCount: provider.resultCount,
@@ -48,10 +47,7 @@ class _SearchCityBarState extends State<SearchCityBar> {
     return ListTile(
       title: Text(
         city.nameAndCountryCode,
-        style: const TextStyle(
-          color: AppColors.textColor,
-          fontSize: 16,
-        ),
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }
