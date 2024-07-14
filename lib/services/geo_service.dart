@@ -1,8 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:weather_track/models/city.dart';
-import 'package:weather_track/utils/bytes_to_json.dart';
 import 'package:weather_track/utils/constants/api_constants.dart';
 import 'package:weather_track/utils/exceptions/geo_exception.dart';
+import 'package:weather_track/utils/helper_functions.dart';
 
 class GeoService {
   Future<List<City>> search(String cityNamePrefix) async {
@@ -15,7 +15,7 @@ class GeoService {
     });
 
     if (response.statusCode == 200) {
-      final decodedResponse = bytesToJson(response.bodyBytes);
+      final decodedResponse = HelperFunctions.bytesToJson(response.bodyBytes);
       return City.fromMapList(decodedResponse['data']);
     } else {
       throw GeoException('Failed to load data: ${response.statusCode}');

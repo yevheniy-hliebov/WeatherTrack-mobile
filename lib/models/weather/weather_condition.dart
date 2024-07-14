@@ -12,10 +12,11 @@ class WeatherCondition {
   });
 
   factory WeatherCondition.fromMap(Map<String, dynamic> map) {
+    String description = map['description'];
     return WeatherCondition(
       id: map['id'],
       main: map['main'],
-      description: map['description'],
+      description: description[0].toUpperCase() + description.substring(1),
       icon: map['icon'],
     );
   }
