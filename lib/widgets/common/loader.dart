@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_track/utils/constants/constants.dart';
 
 class Loader extends StatelessWidget {
   final Color color;
@@ -9,8 +10,8 @@ class Loader extends StatelessWidget {
   const Loader({
     super.key,
     this.color = Colors.black,
-    this.size = 35,
-    this.strokeWidth = 3,
+    this.size = Sizes.loaderSize,
+    this.strokeWidth = Sizes.loaderStrokeWidth,
     this.padding = const EdgeInsets.all(0),
   });
 
