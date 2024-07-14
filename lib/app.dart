@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_track/styles/theme_style.dart';
+import 'package:weather_track/utils/theme/theme_style.dart';
 import 'package:weather_track/widgets/home_page.dart';
 
 class App extends StatelessWidget {
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WeatherTrack',
-      theme: ThemeStyle.getTheme(),
+      theme: ThemeStyle.defaultTheme,
       home: const HomePage(),
     );
   }
