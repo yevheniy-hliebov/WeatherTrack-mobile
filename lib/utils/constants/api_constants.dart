@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class Config {
+class APIContstants {
   static final String weatherApiKey = dotenv.get('WEATHER_API_KEY');
   static final String weatherApiUrl = dotenv.get('WEATHER_API_URL');
   static final String weatherApiLang = dotenv.get('WEATHER_API_LANG');

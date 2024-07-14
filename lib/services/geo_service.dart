@@ -1,17 +1,17 @@
 import 'package:http/http.dart' as http;
-import 'package:weather_track/config/config.dart';
-import 'package:weather_track/exceptions/geo_exception.dart';
 import 'package:weather_track/models/city.dart';
 import 'package:weather_track/utils/bytes_to_json.dart';
+import 'package:weather_track/utils/constants/api_constants.dart';
+import 'package:weather_track/utils/exceptions/geo_exception.dart';
 
 class GeoService {
   Future<List<City>> search(String cityNamePrefix) async {
     final url = Uri.parse(
-      '${Config.geoApiUrl}/cities?minPopulation=${Config.geoPopulation}&namePrefix=$cityNamePrefix',
+      '${APIContstants.geoApiUrl}/cities?minPopulation=${APIContstants.geoPopulation}&namePrefix=$cityNamePrefix',
     );
 
     final response = await http.get(url, headers: {
-      'X-RapidAPI-Key': Config.xRapidapiKey,
+      'X-RapidAPI-Key': APIContstants.xRapidapiKey,
     });
 
     if (response.statusCode == 200) {
