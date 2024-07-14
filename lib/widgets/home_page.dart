@@ -7,6 +7,7 @@ import 'package:weather_track/providers/search_city_provider.dart';
 import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
 import 'package:weather_track/utils/constants/constants.dart';
+import 'package:weather_track/widgets/api_links_text.dart';
 import 'package:weather_track/widgets/common/common.dart';
 import 'package:weather_track/widgets/search_city_bar.dart';
 import 'package:weather_track/widgets/weather_container.dart';
@@ -54,6 +55,8 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         children: [
                           WeatherContainer(),
+                          SizedBox(height: Sizes.spaceBtwSections),
+                          ApiLinksText(),
                         ],
                       ),
                     ),
