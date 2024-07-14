@@ -23,6 +23,7 @@ class Sizes {
   static const double containerRadiusSm = 10;
   static const double containerRadiusLg = 25;
   static const double containerBorderWidth = 1;
+  static const double dayTabButtonWidth = 94;
 
   // Size city bar
   static const double customSearchBarHeight = 70;
@@ -30,6 +31,7 @@ class Sizes {
   // Default spacing between items
   static const double defaultSpace = 10;
   static const double spaceBtwSections = 20;
+  static const double spaceBtwSections2 = 25;
 
   // Tab buttons sizes
   static const double tabButtonWidth = 140;

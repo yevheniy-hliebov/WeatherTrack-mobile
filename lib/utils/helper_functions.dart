@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
+import 'package:weather_track/models/dayly_weather.dart';
+import 'package:weather_track/models/weather.dart';
 
 class HelperFunctions {
   static const double _kelvinOffset = 273.15;
@@ -39,13 +41,51 @@ class HelperFunctions {
     return directions[index];
   }
 
-  static String unixDateToString(int unixDate, String? newPattern) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixDate * 1000);
+  static String formatDate(
+      {required dynamic date, String newPattern = 'HH:mm EEEE, dd MMM yyyy'}) {
+    DateTime dateTime;
 
-    DateFormat dateFormat = DateFormat(newPattern ?? 'HH:mm EEEE, dd MMM yyyy');
+    if (date is int) {
+      dateTime = DateTime.fromMillisecondsSinceEpoch(date * 1000);
+    } else if (date is String) {
+      dateTime = DateTime.parse(date);
+    } else if (date is DateTime) {
+      dateTime = date;
+    } else {
+      throw ArgumentError('Invalid dateInput type. Expected int or String.');
+    }
+
+    DateFormat dateFormat = DateFormat(newPattern);
 
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;
+  }
+
+  static List<DailyForecast> groupForecastsByDay(List<Weather> forecast) {
+    Map<String, List<Weather>> groupedForecasts = {};
+
+    for (var weather in forecast) {
+      String dateKey = formatDate(date: weather.dtTxt, newPattern: 'dd.MM.yy');
+      if (groupedForecasts.containsKey(dateKey)) {
+        groupedForecasts[dateKey]!.add(weather);
+      } else {
+        groupedForecasts[dateKey] = [weather];
+      }
+    }
+
+    List<DailyForecast> dailyForecasts = [];
+
+    groupedForecasts.forEach((dateKey, forecasts) {
+      dailyForecasts.add(DailyForecast(
+        date: DateFormat('dd.MM.yy').parse(dateKey),
+        forecast: forecasts,
+      ));
+    });
+
+    // Сортуємо дні за датою
+    dailyForecasts.sort((a, b) => a.date.compareTo(b.date));
+
+    return dailyForecasts;
   }
 }

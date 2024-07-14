@@ -25,7 +25,8 @@ class WeatherProvider extends ChangeNotifier {
   void selectWeatherInfoType(WeatherInfoType weatherInfoType) {
     _weatherInfoType = weatherInfoType;
     notifyListeners();
-    if (weatherInfoType == WeatherInfoType.forecast && (forecast == null || forecast!.isEmpty)) {
+    if (weatherInfoType == WeatherInfoType.forecast &&
+        (forecast == null || forecast!.isEmpty)) {
       getWeather();
     }
   }

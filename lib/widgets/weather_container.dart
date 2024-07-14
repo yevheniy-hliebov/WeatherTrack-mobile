@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/border_styles.dart';
 import 'package:weather_track/utils/constants/constants.dart';
+import 'package:weather_track/utils/helper_functions.dart';
 import 'package:weather_track/widgets/common/common.dart';
 import 'package:weather_track/widgets/current-weather/current_weather.dart';
+import 'package:weather_track/widgets/forecast/forecast.dart';
 
 class WeatherContainer extends StatefulWidget {
   const WeatherContainer({super.key});
@@ -92,7 +94,10 @@ class _WeatherContainerState extends State<WeatherContainer> {
       return CurrentWeather(currentWeather: weatherProvider.currentWeather!);
     } else if (weatherProvider.isForecastWeather &&
         weatherProvider.forecast != null) {
-      return const SizedBox();
+      return Forecast(
+        dailyForecast:
+            HelperFunctions.groupForecastsByDay(weatherProvider.forecast!),
+      );
     } else {
       return const Center(
         child: Text('Not found'),

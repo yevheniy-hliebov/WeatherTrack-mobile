@@ -14,7 +14,10 @@ class LastUpdateText extends StatelessWidget {
     if (unixDate == null) {
       return const SizedBox();
     }
-    String formattedDate = HelperFunctions.unixDateToString(unixDate!, null);
+    String formattedDate = HelperFunctions.formatDate(
+      date: unixDate,
+      newPattern: 'HH:mm EEEE, dd MMM yyyy',
+    );
     return Text('Last update: $formattedDate');
   }
 }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_track/providers/forecast_provider.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
 import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => SearchCityProvider()),
         ChangeNotifierProvider(create: (_) => WeatherProvider()),
+        ChangeNotifierProvider(create: (_) => ForecastProvider()),
       ],
       child: Container(
         decoration: BoxDecoration(
@@ -29,7 +31,9 @@ class HomePage extends StatelessWidget {
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-              sigmaX: Sizes.blurValueXs, sigmaY: Sizes.blurValueXs),
+            sigmaX: Sizes.blurValueXs,
+            sigmaY: Sizes.blurValueXs,
+          ),
           child: Scaffold(
             backgroundColor: AppColors.transparent,
             appBar: AppBar(
@@ -38,6 +42,7 @@ class HomePage extends StatelessWidget {
               title: const AppTitle(title: 'WeatherTrack'),
             ),
             body: const SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.all(Sizes.md),
                 child: Stack(

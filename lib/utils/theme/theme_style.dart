@@ -11,6 +11,7 @@ class ThemeStyle {
     primaryColor: AppColors.primary,
     textTheme: TextTheme(
       titleLarge: const TextStyle().copyWith(color: AppColors.text),
+      titleMedium: const TextStyle().copyWith(color: AppColors.text),
       headlineMedium: const TextStyle().copyWith(color: AppColors.text),
       displayLarge: const TextStyle().copyWith(
         color: AppColors.text,

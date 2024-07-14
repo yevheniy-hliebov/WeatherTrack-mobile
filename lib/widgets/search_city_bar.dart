@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_track/models/city.dart';
+import 'package:weather_track/providers/forecast_provider.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
 import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/widgets/common/common.dart';
@@ -20,6 +21,7 @@ class _SearchCityBarState extends State<SearchCityBar> {
     SearchCityProvider searchCityProvider =
         Provider.of<SearchCityProvider>(context);
     WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
+    ForecastProvider forecastProvider = Provider.of<ForecastProvider>(context);
 
     return CustomSearchBar(
       controller: _controller,
@@ -30,11 +32,11 @@ class _SearchCityBarState extends State<SearchCityBar> {
           _buildItemResult(searchCityProvider.listCities[index]),
       resultCount: searchCityProvider.resultCount,
       onFocused: () => _handleOnFocused(searchCityProvider),
-      onTapedItemResult: (index) => _handleOnTapedItemResult(
-        searchCityProvider,
-        weatherProvider,
-        index,
-      ),
+      onTapedItemResult: (index) {
+        _controller.text = searchCityProvider.listCities[index].name;
+        weatherProvider.selectCity(searchCityProvider.listCities[index]);
+        forecastProvider.selectDay(0);
+      },
       onChangeInputText: searchCityProvider.searchCities,
     );
   }
@@ -43,13 +45,6 @@ class _SearchCityBarState extends State<SearchCityBar> {
     if (_controller.text.isEmpty) {
       provider.searchDefaultCities();
     }
-  }
-
-  void _handleOnTapedItemResult(
-      SearchCityProvider provider, WeatherProvider weatherProvider, int index) {
-    _controller.text = provider.listCities[index].name;
-    print('selected');
-    weatherProvider.selectCity(provider.listCities[index]);
   }
 
   Widget _buildItemResult(City city) {
