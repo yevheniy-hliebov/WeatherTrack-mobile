@@ -65,8 +65,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Widget build(BuildContext context) {
     return TapRegion(
       onTapOutside: (_) => _focusNode.unfocus(),
-      child: Stack(
-        clipBehavior: Clip.none,
+      child: Column(
         children: [
           CustomContainer(
             padding: const EdgeInsets.symmetric(
@@ -91,6 +90,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               onChanged: onChanged,
             ),
           ),
+          const SizedBox(height: Sizes.defaultSpace),
           if (widget.resultCount > 0) getResultList(),
         ],
       ),
@@ -126,34 +126,28 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     if (isFocused == false) {
       return const SizedBox();
     }
-    return Positioned(
-      left: 0,
-      right: 0,
-      top: Sizes.customSearchBarHeight,
-      child: CustomContainer(
-        width: double.infinity,
-        border: BorderStyles.defaultBorder,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (int index = 0; index < widget.resultCount; index++) ...[
-              Material(
-                color: AppColors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    widget.onTapedItemResult?.call(index);
-                    _focusNode.unfocus();
-                  },
-                  splashColor: AppColors.splashColor,
-                  child: widget.itemResultBuilder(context, index),
-                ),
+    return CustomContainer(
+      width: double.infinity,
+      border: BorderStyles.defaultBorder,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (int index = 0; index < widget.resultCount; index++) ...[
+            Material(
+              color: AppColors.transparent,
+              child: InkWell(
+                onTap: () {
+                  widget.onTapedItemResult?.call(index);
+                  _focusNode.unfocus();
+                },
+                child: widget.itemResultBuilder(context, index),
               ),
-              if (widget.separatorResultBuilder != null &&
-                  index < widget.resultCount - 1)
-                widget.separatorResultBuilder!(context, index),
-            ]
-          ],
-        ),
+            ),
+            if (widget.separatorResultBuilder != null &&
+                index < widget.resultCount - 1)
+              widget.separatorResultBuilder!(context, index),
+          ]
+        ],
       ),
     );
   }

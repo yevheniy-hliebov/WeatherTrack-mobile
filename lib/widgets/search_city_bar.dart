@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_track/models/city.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
+import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/widgets/common/common.dart';
 
 class SearchCityBar extends StatefulWidget {
@@ -16,19 +17,25 @@ class _SearchCityBarState extends State<SearchCityBar> {
 
   @override
   Widget build(BuildContext context) {
-    SearchCityProvider provider = Provider.of<SearchCityProvider>(context);
+    SearchCityProvider searchCityProvider =
+        Provider.of<SearchCityProvider>(context);
+    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
 
     return CustomSearchBar(
       controller: _controller,
       hintText: 'Enter city...',
-      isLoading: provider.isLoading,
+      isLoading: searchCityProvider.isLoading,
       separatorResultBuilder: (context, index) => const CustomDivider(),
       itemResultBuilder: (context, index) =>
-          _buildItemResult(provider.listCities[index]),
-      resultCount: provider.resultCount,
-      onFocused: () => _handleOnFocused(provider),
-      onTapedItemResult: (index) => _handleOnTapedItemResult(provider, index),
-      onChangeInputText: provider.searchCities,
+          _buildItemResult(searchCityProvider.listCities[index]),
+      resultCount: searchCityProvider.resultCount,
+      onFocused: () => _handleOnFocused(searchCityProvider),
+      onTapedItemResult: (index) => _handleOnTapedItemResult(
+        searchCityProvider,
+        weatherProvider,
+        index,
+      ),
+      onChangeInputText: searchCityProvider.searchCities,
     );
   }
 
@@ -38,9 +45,11 @@ class _SearchCityBarState extends State<SearchCityBar> {
     }
   }
 
-  void _handleOnTapedItemResult(SearchCityProvider provider, int index) {
+  void _handleOnTapedItemResult(
+      SearchCityProvider provider, WeatherProvider weatherProvider, int index) {
     _controller.text = provider.listCities[index].name;
-    provider.selectCity(index);
+    print('selected');
+    weatherProvider.selectCity(provider.listCities[index]);
   }
 
   Widget _buildItemResult(City city) {

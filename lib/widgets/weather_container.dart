@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_track/models/weather.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/border_styles.dart';
 import 'package:weather_track/utils/constants/constants.dart';
 import 'package:weather_track/widgets/common/common.dart';
@@ -14,21 +15,27 @@ class WeatherContainer extends StatefulWidget {
 }
 
 class _WeatherContainerState extends State<WeatherContainer> {
-  bool _isCurrentWeather = true;
-
   @override
   Widget build(BuildContext context) {
+    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
+
+    if (weatherProvider.selectedCity == null) {
+      return const SizedBox(
+        width: double.infinity,
+      );
+    }
+
     return CustomContainer(
       width: double.infinity,
       padding: const EdgeInsets.all(Sizes.lg),
       border: BorderStyles.defaultBorder,
       child: Column(
         children: [
-          _buildCityTitle('Kyiv, UA'),
+          _buildCityTitle(weatherProvider.selectedCity!.nameAndCountryCode),
           const SizedBox(height: Sizes.defaultSpace),
-          _buildTabButtons(),
+          _buildTabButtons(weatherProvider),
           const SizedBox(height: Sizes.spaceBtwSections),
-          _buildBody(),
+          _buildBody(weatherProvider),
         ],
       ),
     );
@@ -48,34 +55,48 @@ class _WeatherContainerState extends State<WeatherContainer> {
     );
   }
 
-  Widget _buildTabButtons() {
+  Widget _buildTabButtons(WeatherProvider weatherProvider) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TabButton(
           text: 'Current',
-          isActive: _isCurrentWeather,
-          onTap: onTapButton,
+          isActive: weatherProvider.isCurrentWeather,
+          onTap: () {
+            weatherProvider.selectWeatherInfoType(WeatherInfoType.current);
+          },
         ),
         const SizedBox(width: Sizes.defaultSpace),
         TabButton(
           text: 'Forecast',
-          isActive: !_isCurrentWeather,
-          onTap: onTapButton,
+          isActive: weatherProvider.isForecastWeather,
+          onTap: () {
+            weatherProvider.selectWeatherInfoType(WeatherInfoType.forecast);
+          },
         ),
       ],
     );
   }
 
-  void onTapButton() {
-    setState(() => _isCurrentWeather = !_isCurrentWeather);
-  }
+  Widget _buildBody(WeatherProvider weatherProvider) {
+    if (weatherProvider.isLoading) {
+      return const Center(
+        child: Loader(
+          color: AppColors.primary,
+        ),
+      );
+    }
 
-  Widget _buildBody() {
-    if (_isCurrentWeather) {
-      return CurrentWeather(currentWeather: Weather.mockWeather);
-    } else {
+    if (weatherProvider.isCurrentWeather &&
+        weatherProvider.currentWeather != null) {
+      return CurrentWeather(currentWeather: weatherProvider.currentWeather!);
+    } else if (weatherProvider.isForecastWeather &&
+        weatherProvider.forecast != null) {
       return const SizedBox();
+    } else {
+      return const Center(
+        child: Text('Not found'),
+      );
     }
   }
 }

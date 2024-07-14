@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_track/providers/search_city_provider.dart';
+import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
 import 'package:weather_track/utils/constants/constants.dart';
 import 'package:weather_track/widgets/common/common.dart';
@@ -14,8 +15,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SearchCityProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SearchCityProvider()),
+        ChangeNotifierProvider(create: (_) => WeatherProvider()),
+      ],
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -48,10 +52,8 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      top: 0,
+                    Align(
+                      alignment: Alignment.topCenter,
                       child: SearchCityBar(),
                     ),
                   ],

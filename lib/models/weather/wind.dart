@@ -16,7 +16,7 @@ class Wind {
   factory Wind.fromMap(Map<String, dynamic> map) {
     return Wind(
       speed: map['speed'] ?? 0,
-      deg: (map['deg'] as num).toDouble() ?? 0,
+      deg: (map['deg'] as num).toDouble(),
       direction: HelperFunctions.degreesToDirection((map['deg'] as num).toDouble()),
       gust: map['gust'] ?? 0,
     );

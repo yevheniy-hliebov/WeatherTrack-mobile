@@ -9,7 +9,6 @@ class SearchCityProvider extends ChangeNotifier {
 
   List<City> listCities = [];
   List<City> listDefaultCities = [];
-  City? selectedCity;
 
   bool isLoading = false;
 
@@ -36,11 +35,6 @@ class SearchCityProvider extends ChangeNotifier {
       listCities = listDefaultCities;
       notifyListeners();
     }
-  }
-
-  void selectCity(int index) {
-    selectedCity = listCities[index];
-    notifyListeners();
   }
 
   void _startLoading() {

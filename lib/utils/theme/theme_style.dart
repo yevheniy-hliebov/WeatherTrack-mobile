@@ -21,5 +21,9 @@ class ThemeStyle {
       labelLarge: const TextStyle().copyWith(color: AppColors.text),
       labelMedium: const TextStyle().copyWith(color: AppColors.text),
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColors.text,
+      selectionHandleColor: AppColors.text,
+    ),
   );
 }
