@@ -4,6 +4,7 @@ import 'package:weather_track/utils/constants/constants.dart';
 import 'package:weather_track/widgets/api_links_text.dart';
 import 'package:weather_track/widgets/app_background.dart';
 import 'package:weather_track/widgets/common/common.dart';
+import 'package:weather_track/widgets/refresh_weather.dart';
 import 'package:weather_track/widgets/search_city_bar.dart';
 import 'package:weather_track/widgets/weather_app_providers.dart.dart';
 import 'package:weather_track/widgets/weather_container.dart';
@@ -22,29 +23,31 @@ class HomePage extends StatelessWidget {
             systemOverlayStyle: SystemOverlayStyle.getStyle(),
             title: const AppTitle(title: 'WeatherTrack'),
           ),
-          body: const SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.all(Sizes.md),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: Sizes.customSearchBarHeight + Sizes.sm),
-                    child: Column(
-                      children: [
-                        WeatherContainer(),
-                        SizedBox(height: Sizes.spaceBtwSections),
-                        ApiLinksText(),
-                      ],
+          body: const RefreshWeather(
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.all(Sizes.md),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: Sizes.customSearchBarHeight + Sizes.sm),
+                      child: Column(
+                        children: [
+                          WeatherContainer(),
+                          SizedBox(height: Sizes.spaceBtwSections),
+                          ApiLinksText(),
+                        ],
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: SearchCityBar(),
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: SearchCityBar(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

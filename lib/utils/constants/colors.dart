@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primary = Color(0xFFF4F4F4);
+  static const Color onPrimary = Color(0xFF242424);
 
   /// SystemOverlayColors
   static Color statusBar = Colors.black.withOpacity(0.5);
