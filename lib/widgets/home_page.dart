@@ -1,14 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:weather_track/providers/forecast_provider.dart';
-import 'package:weather_track/providers/search_city_provider.dart';
-import 'package:weather_track/providers/weather_provider.dart';
 import 'package:weather_track/styles/system_overlay_style.dart';
 import 'package:weather_track/utils/constants/constants.dart';
 import 'package:weather_track/widgets/api_links_text.dart';
 import 'package:weather_track/widgets/common/common.dart';
+import 'package:weather_track/widgets/weather_app_providers.dart.dart';
 import 'package:weather_track/widgets/search_city_bar.dart';
 import 'package:weather_track/widgets/weather_container.dart';
 
@@ -17,12 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SearchCityProvider()),
-        ChangeNotifierProvider(create: (_) => WeatherProvider()),
-        ChangeNotifierProvider(create: (_) => ForecastProvider()),
-      ],
+    return WeatherAppProviders(
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
